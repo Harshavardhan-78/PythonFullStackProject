@@ -4,8 +4,8 @@ import requests
 st.title("📊 Event Reports")
 st.markdown("---")
 
-# Assuming the backend is running on port 8001
-FASTAPI_BASE_URL = "http://127.0.0.1:8001"
+# Assuming the backend is running on port 8000
+FASTAPI_BASE_URL = "http://127.0.0.1:8000"
 
 try:
     res = requests.get(f"{FASTAPI_BASE_URL}/events/reports")

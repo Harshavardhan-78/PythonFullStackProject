@@ -3,10 +3,9 @@ import requests
 import datetime
 
 st.title("➕ Create New Event (Public Access)")
-st.info("Note: This endpoint uses a default Organizer ID for simplicity.")
 
-# Assuming the backend is running on port 8001
-FASTAPI_BASE_URL = "http://127.0.0.1:8001"
+# Assuming the backend is running on port 8000
+FASTAPI_BASE_URL = "http://127.0.0.1:8000"
 
 # Input form for the new event
 name = st.text_input("Event Name")
@@ -36,3 +35,4 @@ if st.button("Submit Event"):
         
         except requests.exceptions.ConnectionError:
             st.error("Failed to connect to the backend API. Check if FastAPI is running on port 8001.")
+

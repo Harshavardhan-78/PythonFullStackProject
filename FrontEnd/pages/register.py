@@ -4,7 +4,7 @@ import requests
 st.title("📝 Register for Event")
 
 # Ensure this matches your running API port
-FASTAPI_BASE_URL = "http://127.0.0.1:8001" 
+FASTAPI_BASE_URL = "http://127.0.0.1:8000" 
 
 name = st.text_input("Enter your name")
 email = st.text_input("Enter your email")

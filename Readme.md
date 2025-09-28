@@ -100,7 +100,6 @@ The API will be available at `https://localhost:8000`
 ## How to use
 
 # For Event Organizers
-Sign up or log in using your organizer credentials.
 
 Create a new event by entering the event name, date, and venue.
 
@@ -147,10 +146,62 @@ _** API / Server**
 2.`src/Logic.py`:Business logic 
     -Task validation and processing
 
-## Troubeshooting
+## Troubleshooting
+
+### Error 1: `PydanticImportError: BaseSettings has been moved`
+- **Cause:** In `pydantic v2`, `BaseSettings` is no longer available directly in `pydantic`. It has been moved to a separate package: [`pydantic-settings`](https://docs.pydantic.dev/2.11/migration/#basesettings-has-moved-to-pydantic-settings).
+- **Fix:**
+  1. Install the missing package:
+     ```bash
+     pip install pydantic-settings
+     ```
+  2. Update imports in your code:
+     ```python
+     # ❌ Old
+     from pydantic import BaseSettings
+
+     # ✅ New
+     from pydantic_settings import BaseSettings
+     ```
+
+---
+
+### Error 2: `Test FAILED: name 'login_organizer_db' is not defined`
+- **Cause:** The function could not be imported because of a Python module path issue. Running from the interactive shell doesn’t recognize `src/` as a module.
+- **Fix:**
+  1. Create a test script in your project root (e.g. `test_login.py`):
+     ```python
+     from src.database import login_organizer_db
+
+     print(login_organizer_db("your_email", "your_password"))
+     ```
+  2. Run it:
+     ```bash
+     python test_login.py
+     ```
+  This ensures imports work correctly since the project root is on the module path.
 
 
-## common Issues
+
+## Common Issues
+
+- **Untracked files showing in `git status`:**
+  - If you see `../venv/` or `../errors.txt`, it means files outside your repo folder are being picked up.
+  - Add them to `.gitignore`:
+    ```gitignore
+    venv/
+    errors.txt
+    ```
+
+- **FastAPI not auto-reloading changes:**
+  - Make sure you run the server with:
+    ```bash
+    uvicorn API.Main:app --reload
+    ```
+
+- **Invalid credentials when logging in:**
+  - Check if your test user is correctly inserted in Supabase.
+  - Ensure email/password match exactly with what’s stored.
 
 ## Future Enhancements
 1.Email Notifications 📧
